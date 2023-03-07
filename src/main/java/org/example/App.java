@@ -21,9 +21,11 @@ public class App {
         message = session.createTextMessage("My message to ActiveMQ");
         messageProducer.send(message);
         TextMessage text = (TextMessage) messageConsumer.receive();
+        text.acknowledge();
         System.out.println(text.getText());
         Con.closeCon();
         session.close();
+
 
     }
 
@@ -33,6 +35,7 @@ public class App {
         queue = session.createQueue("MyQueue");
         Producer producer = new Producer(session, queue);
         messageProducer = producer.createMsgProducer();
+        messageProducer.setDeliveryMode(1);
         Consumer consumer = new Consumer(session, queue);
         messageConsumer = consumer.createMsgConsumer();
     }

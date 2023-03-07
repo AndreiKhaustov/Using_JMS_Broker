@@ -2,10 +2,7 @@ package org.example.connection;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.Session;
+import javax.jms.*;
 
 public class Con {
     private static Connection connection;
@@ -14,7 +11,7 @@ public class Con {
 
     public static Connection getConnection() {
         try {
-            connectionFactory = new ActiveMQConnectionFactory("admin", "admin", "tcp://localhost:61616");
+            connectionFactory = new ActiveMQConnectionFactory(Credentials.USERNAME, Credentials.PASSWORD, Credentials.BROKER_URL);
             connection = connectionFactory.createConnection();
             connection.start();
         } catch (JMSException e) {
